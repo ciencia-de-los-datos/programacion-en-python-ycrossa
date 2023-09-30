@@ -265,7 +265,7 @@ def pregunta_07():
     numbers = {}
     for item in lista:
         letter = item[0]
-        number = item[1]
+        number = int(item[1])
         
         if (number in numbers):
             numbers[number].append(letter)
@@ -279,8 +279,10 @@ def pregunta_07():
     #tuples_list=[]
     #for key, value in numbers.items():
     #    tuples_list.append((key,value))
+    #    print((key,value))
     #return tuples_list
     return list(numbers.items())
+    #return numbers
 
 def pregunta_08():
     """
@@ -354,8 +356,7 @@ def pregunta_09():
             else:
                 letters[key]  = 1
             
-    letters = dict(sorted(letters.items()))
-    return list(letters.items())
+    return dict(sorted(letters.items()))
 
 
 def pregunta_10():
@@ -459,3 +460,11 @@ def pregunta_12():
         
             
     return dict(sorted(dictionary.items()))
+
+
+
+print(pregunta_07())
+print()
+print(pregunta_08())
+print()
+print(pregunta_09())
