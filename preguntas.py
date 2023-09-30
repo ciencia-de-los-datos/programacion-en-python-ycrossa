@@ -11,7 +11,17 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 
 """
-
+def read_data():
+    
+    import csv
+    
+    with open ("data.csv") as filecsv:
+        file = csv.reader(filecsv, delimiter = "\t")
+        list=[]
+        for row in file:
+            list.append(row)
+    return list
+    
 
 def pregunta_01():
     """
@@ -21,8 +31,11 @@ def pregunta_01():
     214
 
     """
-    return
-
+    list = read_data()
+    sum =0
+    for item in list:
+        sum +=int(item[1])
+    return sum
 
 def pregunta_02():
     """
@@ -39,8 +52,24 @@ def pregunta_02():
     ]
 
     """
-    return
-
+    lista = read_data()
+    letters = {}
+    for item in lista:
+        letter = item[0]
+        if (letter in letters):
+            letters[letter] +=1
+        else:
+            letters[letter] =1
+    
+    #print (letters)
+    letters = dict(sorted(letters.items()))
+    
+    #list_of_tuplas = []
+    #for key in letters:
+    #    list_of_tuplas.append((key,letters[key]))
+    #    #print(key,letters[key])
+    #return list_of_tuplas
+    return list(letters.items())
 
 def pregunta_03():
     """
@@ -57,8 +86,23 @@ def pregunta_03():
     ]
 
     """
-    return
-
+    lista = read_data()
+    letters = {}
+    for item in lista:
+        letter = item[0]
+        if (letter in letters):
+            letters[letter] +=int(item[1])
+        else:
+            letters[letter] =int(item[1])
+    
+    letters = dict(sorted(letters.items()))
+    
+    #list_of_tuplas = []
+    #for key in letters:
+    #    list_of_tuplas.append((key,letters[key]))
+    #    #print(key,letters[key])
+    #return list_of_tuplas    
+    return list(letters.items())
 
 def pregunta_04():
     """
@@ -82,8 +126,27 @@ def pregunta_04():
     ]
 
     """
-    return
-
+    from datetime import date
+    lista = read_data()
+    months = {}
+    for item in lista:
+        year =(item[2][0:4])
+        month = (item[2][5:7])
+        day = (item[2][8:9])
+        
+        if (month in months):
+            months[month] +=1
+        else:
+            months[month] =1
+           
+    months = dict(sorted(months.items()))
+    
+    #list_of_tuplas = []
+    #for key in months:
+    #    list_of_tuplas.append((key,months[key]))
+    #return list_of_tuplas 
+    return list(months.items())
+    
 
 def pregunta_05():
     """
@@ -100,7 +163,29 @@ def pregunta_05():
     ]
 
     """
-    return
+    list = read_data()
+    letters = {}
+    for item in list:
+        letter = item[0]
+        if (letter in letters):
+            curr_min = letters[letter][0]
+            
+            curr_max = letters[letter][1]
+            letters[letter][0] = min(curr_min, int(item[1]))
+            letters[letter][1] = max(curr_max, int(item[1]))
+        else:
+            l=[]
+            l.append(int(item[1]))
+            l.append(int(item[1]))
+            letters[letter] =l[:]
+    
+    letters = dict(sorted(letters.items()))
+    
+    list_of_tuplas = []
+    for key in letters:
+        list_of_tuplas.append((key,letters[key][1],letters[key][0]))
+        #print(key,letters[key])
+    return list_of_tuplas
 
 
 def pregunta_06():
@@ -125,7 +210,34 @@ def pregunta_06():
     ]
 
     """
-    return
+    list = read_data()
+    letters = {}
+    for item in list:
+        dict_items = item[4].split(",")
+        
+        for it in dict_items:
+            key = it [0:3]
+            value = int(it[4:])
+            if (key in letters):
+                curr_min = letters[key][0]
+                
+                curr_max = letters[key][1]
+                letters[key][0] = min(curr_min, value)
+                letters[key][1] = max(curr_max, value)
+            else:
+                l=[]
+                l.append(value)
+                l.append(value)
+                letters[key] =l[:]
+    
+    letters = dict(sorted(letters.items()))
+    
+    list_of_tuplas = []
+    for key in letters:
+        list_of_tuplas.append((key,letters[key][0],letters[key][1]))
+        #print(key,letters[key])
+        
+    return list_of_tuplas
 
 
 def pregunta_07():
@@ -149,8 +261,28 @@ def pregunta_07():
     ]
 
     """
-    return
+    lista = read_data()
+    numbers = {}
+    for item in lista:
+        letter = item[0]
+        number = int(item[1])
+        
+        if (number in numbers):
+            numbers[number].append(letter)
+        else:
+            l=[]
+            l.append(letter)
+            numbers[number] =l[:]
 
+    numbers = dict(sorted(numbers.items()))
+    
+    #tuples_list=[]
+    #for key, value in numbers.items():
+    #    tuples_list.append((key,value))
+    #    print((key,value))
+    #return tuples_list
+    return list(numbers.items())
+    #return numbers
 
 def pregunta_08():
     """
@@ -174,7 +306,20 @@ def pregunta_08():
     ]
 
     """
-    return
+    tuple_list_in = pregunta_07()
+    new_tuple_list =[]
+    for item in tuple_list_in:
+        num, letters = item
+        
+        # Eliminacion de elementos repetidos
+        dict_1 = dict.fromkeys(letters)
+        # Organizaion de elementos de dict_!
+        dict_1 = dict(sorted(dict_1.items()))
+        #conversion nuevamente a lista
+        letters_2 = list(dict_1)
+        new_tuple_list.append((num, letters_2))
+    
+    return new_tuple_list
 
 
 def pregunta_09():
@@ -197,7 +342,21 @@ def pregunta_09():
     }
 
     """
-    return
+    lista = read_data()
+    letters = {}
+    for item in lista:
+        dict_items = item[4].split(",")
+        
+        for it in dict_items:
+            key = it [0:3]
+            value = int(it[4:])
+            
+            if (key in letters):
+                letters[key] += 1
+            else:
+                letters[key]  = 1
+            
+    return dict(sorted(letters.items()))
 
 
 def pregunta_10():
@@ -216,9 +375,18 @@ def pregunta_10():
         ("E", 3, 3),
     ]
 
-
     """
-    return
+    
+    lista = read_data()
+    tuples_list=[]
+    for item in lista:
+        letter = item[0]
+        str1 = item[3]
+        str2 = item[4]
+        tuples_list.append((letter,len(str1.split(",")),len(str2.split(","))))
+        
+        
+    return tuples_list
 
 
 def pregunta_11():
@@ -239,7 +407,21 @@ def pregunta_11():
 
 
     """
-    return
+    
+    lista = read_data()
+    dictionary={}
+    for item in lista:
+        number = int(item[1])
+        elem_list = item[3].split(",")
+        
+        for el  in elem_list:
+            if (el in dictionary):
+                
+                dictionary[el]+=number
+            else:
+                dictionary[el]=number
+        
+    return dict(sorted(dictionary.items()))
 
 
 def pregunta_12():
@@ -257,4 +439,32 @@ def pregunta_12():
     }
 
     """
-    return
+    
+    lista = read_data()
+    dictionary = {}
+    for item in lista:
+        letter = item[0]
+        dict_items = item[4].split(",")
+        sum = 0
+        for it in dict_items:
+            key = it [0:3]
+            value = int(it[4:])
+            sum+=value
+        
+        if (letter in dictionary) :
+        
+            dictionary[letter] += sum
+        else:
+            dictionary[letter] = sum
+            
+        
+            
+    return dict(sorted(dictionary.items()))
+
+
+
+print(pregunta_07())
+print()
+print(pregunta_08())
+print()
+print(pregunta_09())
